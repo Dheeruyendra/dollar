@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+    .main {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      justify-items: center;
+      align-items: center;
+       height: 100vh;
+      background-color: #EEBE6D;
+    }
+    .box {
+
+    font-size: larger;
+    width: 400px;    
+    border: 2px solid black;
+     padding: 15px ;
+     align-items: center;
+     height: 160px;
+    }
+
+  
+   .box input{
+       width: 300px;
+   }
+
+   .box p {
+       margin-bottom: 20px;
+      
+   }
+  .r , .d{
+      display: flex;
+      justify-content: space-between;
+
+  }
+  .r {
+      margin-bottom: 40px;
+  }
+   
+
+    </style>
+</head>
+<body>
+     
+  <div class="main">
+
+      <div class="box">
+     <p>Current Rate: 72.52</p>
+      <div class="r">
+        <label for="ruppee">
+        ₹ (in Cr):</label>
+        <input type="number"  id="ruppee">
+        
+    </div>
+      <div class="d">
+        <label for="dollar"  >$ (in M): </label>
+      
+         <input type="number"  id="dollar">
+         
+  </div>
+    </div>
+
+      </div>
+
+   <script>;
+   
+
+ const rupee = document.querySelector('#ruppee');
+const dollar = document.querySelector('#dollar');
+
+
+function ToDollar() {
+fetch('https://api.exchangeratesapi.io/latest?base=USD&symbols=INR')
+.then(response => response.json())
+.then(json => {
+    dollar.value = ((rupee.value / json.rates.INR) * 10).toFixed(2);
+});
+}
+
+
+ruppee.addEventListener('input', ToDollar);
+
+
+function ToRs() {
+    fetch('https://api.exchangeratesapi.io/latest?base=USD&symbols=INR')
+    .then(response => response.json())
+    .then(json => {
+      ruppee.value = ((dollar.value * json.rates.INR) / 10).toFixed(2);
+    });
+}
+
+dollar.addEventListener('input', ToRs);
+
+
+   </script>
+ 
+
+</body>
+</html>
